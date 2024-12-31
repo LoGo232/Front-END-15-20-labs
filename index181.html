@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма данных</title>
+</head>
+<body>
+<form id="userForm">
+  <label>Имя:
+    <input type="text" id="nameInput" name="name" placeholder="Введите ваше имя" required>
+  </label><br>
+
+  <label>Возраст:
+    <input type="number" id="ageInput" name="age" placeholder="Введите ваш возраст" required>
+  </label><br>
+
+  <label>Выберите пол:
+    <input type="radio" name="gender" value="Мужской" required> Мужской
+    <input type="radio" name="gender" value="Женский"> Женский
+  </label><br>
+
+  <label>Выберите интересы:
+    <input type="checkbox" name="interests" value="Чтение"> Чтение
+    <input type="checkbox" name="interests" value="Спорт"> Спорт
+    <input type="checkbox" name="interests" value="Игры"> Игры
+  </label><br>
+
+  <label>Выберите страну:
+    <select id="countrySelect" name="country">
+      <option value="Россия">Россия</option>
+      <option value="Беларусь">Беларусь</option>
+      <option value="Австралия">Австралия</option>
+    </select>
+  </label><br>
+
+  <button type="button" id="submitButton">Отправить</button>
+</form>
+<div id="output"></div>
+
+<script src="18/181/script.js"></script>
+</body>
+</html>

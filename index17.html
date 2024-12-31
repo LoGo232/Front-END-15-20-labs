@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерфейсные события</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .example {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #drag-item {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+            margin: 10px;
+            cursor: grab;
+        }
+        #drop-zone {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #scroll-box {
+            width: 300px;
+            height: 100px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        #scroll-content {
+            height: 300px;
+            background: linear-gradient(to bottom, lightgreen, lightblue);
+        }
+        .touch-box {
+            width: 150px;
+            height: 150px;
+            background-color: lightcoral;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Примеры интерфейсных событий</h1>
+
+<!-- 1. События мыши -->
+<div class="example">
+    <h3>События мыши</h3>
+    <button id="mouse-btn">Кликни меня!</button>
+    <p id="mouse-result"></p>
+</div>
+
+<!-- 2. События клавиатуры -->
+<div class="example">
+    <h3>События клавиатуры</h3>
+    <input type="text" id="keyboard-input" placeholder="Введите текст">
+    <p id="keyboard-result"></p>
+</div>
+
+<!-- 3. Drag & Drop -->
+<div class="example">
+    <h3>Drag & Drop</h3>
+    <div id="drag-item" draggable="true">Перетащи</div>
+    <div id="drop-zone">Сюда</div>
+</div>
+
+<!-- 4. События указателя -->
+<div class="example">
+    <h3>События указателя</h3>
+    <div id="pointer-box" class="touch-box">Двигай пальцем/мышью</div>
+    <p id="pointer-result"></p>
+</div>
+
+<!-- 5. События полосы прокрутки -->
+<div class="example">
+    <h3>События полосы прокрутки</h3>
+    <div id="scroll-box">
+        <div id="scroll-content"></div>
+    </div>
+    <p id="scroll-result"></p>
+</div>
+
+<!-- 6. События сенсорных экранов -->
+<div class="example">
+    <h3>События сенсорных экранов</h3>
+    <div id="touch-box" class="touch-box">Коснись</div>
+    <p id="touch-result"></p>
+</div>
+
+<!-- 7. События с таймером -->
+<div class="example">
+    <h3>События с таймером</h3>
+    <button id="timer-start">Запустить таймер</button>
+    <button id="timer-stop">Остановить таймер</button>
+    <p id="timer-result"></p>
+</div>
+
+<script src="17/script.js"></script>
+</body>
+<footer> Арсений Станкевич  ПЗТ-37</footer>
+</html>

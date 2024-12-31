@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина интернет-магазина</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Стилизация каталога товаров */
+        #catalog {
+            width: 70%;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .product button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .product button:hover {
+            background-color: #45a049;
+        }
+
+        /* Стилизация корзины */
+        #cart {
+            width: 25%;
+            position: sticky;
+            top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #cart h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        #cart div {
+            margin: 10px 0;
+            padding: 5px;
+            background-color: #e9f7e9;
+            border-radius: 5px;
+        }
+
+        #cart button {
+            margin-top: 10px;
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #cart button:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+<div id="catalog">
+    <h1>Каталог товаров</h1>
+</div>
+
+<div id="cart">
+    <h2>Корзина</h2>
+    <div id="cartItems"></div>
+    <button onclick="clearCart()">Очистить корзину</button>
+</div>
+
+<script>
+    let catalog = [
+        { id: 1, name: "Смартфон", price: 50000, description: "Смартфон с отличной камерой",   },
+        { id: 2, name: "Ноутбук", price: 70000, description: "Мощный ноутбук для работы и игр",  },
+        { id: 3, name: "Наушники", price: 5000, description: "Наушники с шумоподавлением",  },
+        { id: 4, name: "Клавиатура", price: 2000, description: "Механическая клавиатура с подсветкой",  },
+        { id: 5, name: "Мышь", price: 1500, description: "Игровая мышь с высокой точностью",  },
+        { id: 6, name: "Монитор", price: 30000, description: "Монитор с разрешением 4K",  },
+        { id: 7, name: "Камера", price: 25000, description: "Цифровая камера для съемки видео",  },
+        { id: 8, name: "Часы", price: 12000, description: "Умные часы с функциями здоровья",  },
+        { id: 9, name: "Телевизор", price: 40000, description: "4K телевизор с OLED экраном",  },
+        { id: 10, name: "Планшет", price: 30000, description: "Планшет с большим экраном", }
+    ];
+
+    let cart = [];
+
+    // Функция отображения каталога товаров
+    function displayCatalog() {
+        const catalogDiv = document.getElementById('catalog');
+        catalog.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product');
+            productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p>Цена: ${product.price} руб.</p>
+                    <button onclick="addToCart(${product.id})">Добавить в корзину</button>
+                `;
+            catalogDiv.appendChild(productDiv);
+        });
+    }
+
+    // Функция добавления товара в корзину
+    function addToCart(productId) {
+        const product = catalog.find(item => item.id === productId);
+        cart.push(product);
+        updateCart();
+    }
+
+    // Обновление корзины
+    function updateCart() {
+        const cartDiv = document.getElementById('cartItems');
+        cartDiv.innerHTML = ''; // Очищаем корзину
+        cart.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.innerHTML = `${product.name} - ${product.price} руб.`;
+            cartDiv.appendChild(productDiv);
+        });
+    }
+
+    // Очистка корзины
+    function clearCart() {
+        cart = [];
+        updateCart();
+    }
+
+    // Загружаем каталог товаров при загрузке страницы
+    displayCatalog();
+</script>
+
+</body>
+</html>

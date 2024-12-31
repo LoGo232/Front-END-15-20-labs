@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: space-between;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .history {
+            max-width: 300px;
+            margin: 50px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1, h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        .attempts {
+            font-size: 14px;
+            color: #555;
+        }
+        .history-item {
+            padding: 5px;
+            margin-bottom: 5px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Угадай число</h1>
+    <div id="settings">
+        <h2>Настройки</h2>
+        <label>Диапазон чисел:</label>
+        <input type="number" id="range-input" placeholder="Введите максимальное число" min="1">
+        <label>Цвет чисел:</label>
+        <input type="color" id="color-input" value="#000000">
+        <button id="start-btn">Начать игру</button>
+    </div>
+    <div id="game" style="display: none;">
+        <p>Введите число от 1 до <span id="max-number"></span>:</p>
+        <input type="number" id="guess-input" placeholder="Ваше число" min="1">
+        <button id="submit-btn">Угадать</button>
+        <p class="message" id="message"></p>
+        <p class="attempts" id="attempts"></p>
+        <button id="restart-btn" style="display: none;">Сыграть снова</button>
+    </div>
+</div>
+<div class="history">
+    <h2>История событий</h2>
+    <div id="history-list"></div>
+</div>
+<script>
+    class GuessNumberGame {
+        constructor() {
+            this.maxNumber = 100;
+            this.secretNumber = 0;
+            this.attempts = 0;
+            this.isGameOver = false;
+            this.history = [];
+        }
+
+        // Начать новую игру
+        start(maxNumber, numberColor) {
+            this.maxNumber = maxNumber;
+            this.secretNumber = Math.floor(Math.random() * maxNumber) + 1;
+            this.attempts = 0;
+            this.isGameOver = false;
+            this.history = [];
+            this.numberColor = numberColor;
+            this.updateUI("Игра началась! Угадайте число от 1 до " + maxNumber + ".");
+            document.getElementById("max-number").textContent = maxNumber;
+            this.updateHistory();
+        }
+
+        // Попытка угадать
+        guess(number) {
+            if (this.isGameOver) {
+                return "Игра окончена. Нажмите 'Сыграть снова'.";
+            }
+
+            this.attempts++;
+            let result;
+            if (number === this.secretNumber) {
+                this.isGameOver = true;
+                result = `Правильно! Ты угадал за ${this.attempts} попыток.`;
+            } else if (number > this.secretNumber) {
+                result = "Слишком большое!";
+            } else {
+                result = "Слишком маленькое!";
+            }
+
+            this.history.push({ attempt: this.attempts, guess: number, result });
+            this.updateHistory();
+            return result;
+        }
+
+        // Обновление интерфейса
+        updateUI(message) {
+            document.getElementById("message").textContent = message;
+            document.getElementById("attempts").textContent = `Попыток: ${this.attempts}`;
+        }
+
+        // Обновление истории
+        updateHistory() {
+            const historyList = document.getElementById("history-list");
+            historyList.innerHTML = ""; // Очищаем историю
+            this.history.forEach(item => {
+                const div = document.createElement("div");
+                div.classList.add("history-item");
+                div.style.color = this.numberColor;
+                div.textContent = `Попытка ${item.attempt}: Число ${item.guess} - ${item.result}`;
+                historyList.appendChild(div);
+            });
+        }
+    }
+
+    const game = new GuessNumberGame();
+
+    // Настройки игры
+    document.getElementById("start-btn").addEventListener("click", () => {
+        const maxNumber = parseInt(document.getElementById("range-input").value, 10);
+        const numberColor = document.getElementById("color-input").value;
+
+        if (isNaN(maxNumber) || maxNumber < 1) {
+            alert("Введите корректный диапазон чисел!");
+            return;
+        }
+
+        document.getElementById("settings").style.display = "none";
+        document.getElementById("game").style.display = "block";
+        game.start(maxNumber, numberColor);
+    });
+
+    // Попытка угадать
+    document.getElementById("submit-btn").addEventListener("click", () => {
+        const input = document.getElementById("guess-input");
+        const guess = parseInt(input.value, 10);
+
+        if (isNaN(guess) || guess < 1 || guess > game.maxNumber) {
+            game.updateUI("Пожалуйста, введите число от 1 до " + game.maxNumber + ".");
+            return;
+        }
+
+        const result = game.guess(guess);
+        game.updateUI(result);
+
+        if (game.isGameOver) {
+            document.getElementById("restart-btn").style.display = "block";
+            document.getElementById("submit-btn").style.display = "none";
+        }
+
+        input.value = "";
+    });
+
+    // Рестарт игры
+    document.getElementById("restart-btn").addEventListener("click", () => {
+        document.getElementById("settings").style.display = "block";
+        document.getElementById("game").style.display = "none";
+    });
+</script>
+</body>
+</html>
