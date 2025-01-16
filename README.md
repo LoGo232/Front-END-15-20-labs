@@ -1,2 +1,54 @@
-# Front-END-15-20-labs
-Скрипты из лабораторных работ 15-16,17,18,19-20.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Просмотр Лабораторных Работ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .file-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .file-item {
+      margin-bottom: 20px;
+    }
+    .file-link {
+      text-decoration: none;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+<h1>Просмотр Лабораторных Работ</h1>
+<ul class="file-list">
+  <li class="file-item">
+    <a href="index15-16.html" class="file-link" target="_blank">Лабораторная 15-16</a>
+  </li>
+  <li class="file-item">
+    <a href="index17.html" class="file-link" target="_blank">Лабораторная 17</a>
+  </li>
+  <li class="file-item">
+    <a href="index181.html" class="file-link" target="_blank">Лабораторная 18.1</a>
+  </li>
+  <li class="file-item">
+    <a href="index182.html" class="file-link" target="_blank">Лабораторная 18.2</a>
+  </li>
+  <li class="file-item">
+    <a href="index183.html" class="file-link" target="_blank">Лабораторная 18.3</a>
+  </li>
+  <li class="file-item">
+    <a href="index191.html" class="file-link" target="_blank">Лабораторная 19.1</a>
+  </li>
+  <li class="file-item">
+    <a href="index201.html" class="file-link" target="_blank">Лабораторная 20.1</a>
+  </li>
+  <li class="file-item">
+    <a href="index202.html" class="file-link" target="_blank">Лабораторная 20.2</a>
+  </li>
+</ul>
+</body>
+</html>
